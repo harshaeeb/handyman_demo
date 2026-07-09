@@ -1,0 +1,21 @@
+---
+// src/pages/index.astro
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import ServicesGrid from "../components/ServicesGrid.astro";
+import WhyUs from "../components/WhyUs.astro";
+import ReviewsWidget from "../components/ReviewsWidget.astro";
+import BookingEmbed from "../components/BookingEmbed.astro";
+import { site } from "../config/site";
+
+const title = `Handyman Services in ${site.city}, ${site.state} | ${site.business}`;
+const description = `${site.business} — ${site.tagline}. ${site.services.slice(0,4).map(s => s.name).join(", ")} and more. ${site.yearsInBusiness}+ years, ${site.googleRating}★ rated. Call ${site.phoneDisplay} for same-day service.`;
+---
+
+<Base title={title} description={description}>
+  <Hero />
+  <ServicesGrid compact />
+  <WhyUs />
+  <ReviewsWidget />
+  <BookingEmbed />
+</Base>

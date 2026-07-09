@@ -1,0 +1,63 @@
+---
+// src/components/TrustBar.astro — dark strip with 4 animated stat tiles
+import { site } from "../config/site";
+---
+
+<div class="relative overflow-hidden" style="background: linear-gradient(135deg, #111 0%, #1a1009 100%); border-top: 1px solid rgba(255,255,255,0.06);">
+  <!-- Subtle top accent line -->
+  <div class="h-px w-full" style="background: linear-gradient(90deg, transparent, var(--brand-600), transparent);"></div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/5">
+    <!-- Years -->
+    <div class="flex items-center gap-3 px-4 py-3 md:py-0">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--brand-700), var(--brand-600));">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4">
+          <path fill-rule="evenodd" d="M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8Zm7.75-4.25a.75.75 0 0 0-1.5 0V8c0 .414.336.75.75.75h3.25a.75.75 0 0 0 0-1.5h-2.5v-3.5Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-xl font-black text-white">{site.yearsInBusiness}+</p>
+        <p class="text-xs text-white/40">Years in Business</p>
+      </div>
+    </div>
+
+    <!-- Rating -->
+    <div class="flex items-center gap-3 px-4 py-3 md:py-0">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #b45309, #f59e0b);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4">
+          <path fill-rule="evenodd" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-xl font-black text-white">{site.googleRating}★</p>
+        <p class="text-xs text-white/40">{site.googleReviewCount}+ Google Reviews</p>
+      </div>
+    </div>
+
+    <!-- Insured -->
+    <div class="flex items-center gap-3 px-4 py-3 md:py-0">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #065f46, #10b981);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4">
+          <path fill-rule="evenodd" d="M8.5 1.709a.75.75 0 0 0-1 0 8.963 8.963 0 0 1-4.84 2.217.75.75 0 0 0-.654.745v1.604a9.99 9.99 0 0 0 4.65 8.422.75.75 0 0 0 .788 0 9.99 9.99 0 0 0 4.65-8.422V4.67a.75.75 0 0 0-.654-.745A8.963 8.963 0 0 1 8.5 1.71Zm2.34 5.504a.75.75 0 0 0-1.08-1.046l-2.794 2.884-.927-.97a.75.75 0 0 0-1.086 1.036l1.47 1.536a.75.75 0 0 0 1.083.005l3.333-3.445Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-xl font-black text-white">100%</p>
+        <p class="text-xs text-white/40">Licensed & Insured</p>
+      </div>
+    </div>
+
+    <!-- Service areas -->
+    <div class="flex items-center gap-3 px-4 py-3 md:py-0">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4">
+          <path fill-rule="evenodd" d="M8 1a5 5 0 0 0-5 5c0 3.536 4.24 8.3 4.762 8.87a.329.329 0 0 0 .476 0C8.76 14.3 13 9.536 13 6a5 5 0 0 0-5-5Zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-xl font-black text-white">{site.serviceAreas.length}</p>
+        <p class="text-xs text-white/40">Cities Served</p>
+      </div>
+    </div>
+  </div>
+</div>

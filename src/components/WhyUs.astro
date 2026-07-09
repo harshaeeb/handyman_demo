@@ -1,0 +1,83 @@
+---
+// src/components/WhyUs.astro — Gen Z "Why Fix'd Fast?" section with animated pillars
+import { site } from "../config/site";
+
+const pillars = [
+  {
+    icon: `<path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z" fill="currentColor"/>`,
+    label: "Same-Day Service",
+    body: "Book today, we show up today. No week-long waits or 4-hour windows. We respect your time.",
+    color: "#ea580c",
+    bg: "rgba(234,88,12,0.12)",
+  },
+  {
+    icon: `<path fill-rule="evenodd" d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" fill="currentColor"/>`,
+    label: "Guaranteed Work",
+    body: "Not happy? We make it right for free. Simple as that. Every job backed by our workmanship guarantee.",
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.12)",
+  },
+  {
+    icon: `<path fill-rule="evenodd" d="M1 2.75A.75.75 0 0 1 1.75 2h10.5a.75.75 0 0 1 0 1.5H12v9h.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H3v-9h-.25A.75.75 0 0 1 1 2.75ZM4.5 6a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6ZM4 9.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm.5 2.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z" clip-rule="evenodd" fill="currentColor"/>`,
+    label: "Upfront Pricing",
+    body: "You see the price before we touch a thing. No surprise fees, no upsells, no awkward conversations.",
+    color: "#3b82f6",
+    bg: "rgba(59,130,246,0.12)",
+  },
+  {
+    icon: `<path fill-rule="evenodd" d="M8.5 1.709a.75.75 0 0 0-1 0 8.963 8.963 0 0 1-4.84 2.217.75.75 0 0 0-.654.745v1.604a9.99 9.99 0 0 0 4.65 8.422.75.75 0 0 0 .788 0 9.99 9.99 0 0 0 4.65-8.422V4.67a.75.75 0 0 0-.654-.745A8.963 8.963 0 0 1 8.5 1.71Z" clip-rule="evenodd" fill="currentColor"/>`,
+    label: "Vetted Pros Only",
+    body: "Every technician is background-checked, licensed, and insured. You're always in safe hands.",
+    color: "#a78bfa",
+    bg: "rgba(167,139,250,0.12)",
+  },
+];
+---
+
+<section class="relative py-20 overflow-hidden" style="background: linear-gradient(180deg, #0f0e0d 0%, #0c0a09 100%);">
+  <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-14" data-reveal>
+      <span class="inline-block text-xs font-bold text-[var(--brand-400)] uppercase tracking-widest mb-3 border border-[var(--brand-800)] rounded-full px-3 py-1" style="background: rgba(234,88,12,0.1);">
+        Why Fix'd Fast?
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-black text-white">Built different. Actually.</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" data-reveal-stagger>
+      {pillars.map((p) => (
+        <div class="glass card-lift bento-glow rounded-[var(--radius,1.25rem)] p-7 flex flex-col gap-5" style="border: 1px solid rgba(255,255,255,0.07);">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={`background: ${p.bg}; color: ${p.color};`}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-6 h-6" set:html={p.icon}></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base mb-2">{p.label}</h3>
+            <p class="text-sm text-white/50 leading-relaxed">{p.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom CTA bar -->
+    <div class="mt-12 glass rounded-[var(--radius,1.25rem)] p-8 flex flex-col sm:flex-row items-center justify-between gap-6" style="border: 1px solid rgba(255,255,255,0.07);" data-reveal>
+      <div>
+        <p class="text-lg font-bold text-white">Ready to cross it off the list?</p>
+        <p class="text-sm text-white/50 mt-1">Same-day service available in {site.city} and surrounding areas.</p>
+      </div>
+      <div class="flex gap-3 flex-shrink-0">
+        <a href={`tel:${site.phone}`}
+           class="cta-ping inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius,1.25rem)] font-bold text-white text-sm"
+           style="background: linear-gradient(135deg, var(--brand-600), var(--brand-500));">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511Z" clip-rule="evenodd" />
+          </svg>
+          Call Now
+        </a>
+        <a href="/contact" class="glass inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius,1.25rem)] font-bold text-white text-sm hover:bg-white/10 transition-colors">
+          Get a Quote
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

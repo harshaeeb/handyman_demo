@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+/* ─── Static brand fallbacks (orange #ea580c) ─────────────────────────────── */
+:root {
+  --brand-50:  #fff7ed;
+  --brand-100: #ffedd5;
+  --brand-200: #fed7aa;
+  --brand-300: #fdba74;
+  --brand-400: #fb923c;
+  --brand-500: #f97316;
+  --brand-600: #ea580c;
+  --brand-700: #c2410c;
+  --brand-800: #9a3412;
+  --brand-900: #7c2d12;
+  --brand-950: #431407;
+  --brand:           var(--brand-600);
+  --brand-dark:      var(--brand-800);
+  --brand-surface:   var(--brand-50);
+  --brand-surface-strong: var(--brand-100);
+  --radius: 0.75rem;
+}
+
+/* ─── Roundness scale ──────────────────────────────────────────────────────── */
+.round-sm   { --radius: 0.25rem; }
+.round-md   { --radius: 0.75rem; }
+.round-lg   { --radius: 1.25rem; }
+.round-full { --radius: 9999px; }
+
+/* ─── Gen Z Hero: dark animated background ────────────────────────────────── */
+.hero-dark {
+  background: #0c0a09;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating gradient orbs — animated blobs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+.orb-1 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand-600) 55%, transparent) 0%, transparent 70%);
+  top: -120px; left: -100px;
+  animation: orb-drift-1 18s ease-in-out infinite alternate;
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand-400) 35%, transparent) 0%, transparent 70%);
+  bottom: -80px; right: -80px;
+  animation: orb-drift-2 22s ease-in-out infinite alternate;
+}
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(251,191,36,0.25) 0%, transparent 70%);
+  top: 40%; left: 55%;
+  animation: orb-drift-3 15s ease-in-out infinite alternate;
+}
+
+@keyframes orb-drift-1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(60px, 80px) scale(1.15); }
+}
+@keyframes orb-drift-2 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-50px, -60px) scale(1.1); }
+}
+@keyframes orb-drift-3 {
+  from { transform: translate(0, 0) scale(1) rotate(0deg); }
+  to   { transform: translate(-30px, 40px) scale(0.85) rotate(20deg); }
+}
+
+/* Noise grain texture overlay */
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Grid overlay for dark sections */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ─── Shimmer / gradient text ──────────────────────────────────────────────── */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #fff 0%,
+    color-mix(in srgb, var(--brand-300) 90%, white) 35%,
+    #fff 50%,
+    color-mix(in srgb, var(--brand-400) 80%, white) 65%,
+    #fff 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--brand-500) 0%, #fb923c 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ─── Animated CTA button gradient ────────────────────────────────────────── */
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Pulsing ring (CTA ping) ──────────────────────────────────────────────── */
+.cta-ping {
+  position: relative;
+  overflow: visible;
+}
+.cta-ping::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 2px solid color-mix(in srgb, var(--brand-500) 60%, transparent);
+  animation: cta-ping 2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes cta-ping {
+  0%   { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(1.35); }
+}
+
+/* ─── Glassmorphism ────────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.glass-light {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* ─── Card lift on hover ───────────────────────────────────────────────────── */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.card-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -12px color-mix(in srgb, var(--brand) 30%, transparent);
+}
+
+/* ─── Floating badge animation ─────────────────────────────────────────────── */
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+.float-badge {
+  animation: float-badge 4s ease-in-out infinite;
+}
+
+/* ─── Bento glow: colored border glow on cards ─────────────────────────────── */
+.bento-glow {
+  position: relative;
+}
+.bento-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--brand-500) 60%, transparent),
+    transparent 40%,
+    color-mix(in srgb, var(--brand-400) 30%, transparent));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.bento-glow:hover::before {
+  opacity: 1;
+}
+
+/* ─── Scroll reveal ────────────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+              transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+[data-reveal-stagger].revealed > *:nth-child(1) { transition-delay: 0ms;   opacity:1; transform:none; }
+[data-reveal-stagger].revealed > *:nth-child(2) { transition-delay: 80ms;  opacity:1; transform:none; }
+[data-reveal-stagger].revealed > *:nth-child(3) { transition-delay: 160ms; opacity:1; transform:none; }
+[data-reveal-stagger].revealed > *:nth-child(4) { transition-delay: 240ms; opacity:1; transform:none; }
+[data-reveal-stagger].revealed > *:nth-child(5) { transition-delay: 320ms; opacity:1; transform:none; }
+[data-reveal-stagger].revealed > *:nth-child(6) { transition-delay: 400ms; opacity:1; transform:none; }
+[data-reveal-stagger].revealed > *:nth-child(7) { transition-delay: 480ms; opacity:1; transform:none; }
+[data-reveal-stagger].revealed > *:nth-child(8) { transition-delay: 560ms; opacity:1; transform:none; }
+
+/* ─── Stat counter pulse ───────────────────────────────────────────────────── */
+@keyframes count-in {
+  from { opacity: 0; transform: scale(0.7) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.stat-number {
+  animation: count-in 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* ─── Animated border gradient (hero CTA) ─────────────────────────────────── */
+@keyframes border-rotate {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
+}
