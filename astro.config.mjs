@@ -10,7 +10,7 @@ import sitemap from '@astrojs/sitemap';
 // sitemap and canonical tags. Update this on every new client build.
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://fixdfast-demo.pages.dev',
+  site: 'https://donerighthandyman-demo.pages.dev',
 
   vite: {
     plugins: [tailwindcss()]

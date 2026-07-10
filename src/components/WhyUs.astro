@@ -1,33 +1,33 @@
 ---
-// src/components/WhyUs.astro — "Why Fix'd Fast?" section, light theme
+// src/components/WhyUs.astro — "Why [business]?" section, light theme
 import { site } from "../config/site";
 
 const pillars = [
   {
-    icon: `<path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z" fill="currentColor"/>`,
-    label: "Same-Day Service",
-    body: "Book today, we show up today. No week-long waits or 4-hour windows. We respect your time.",
-    color: "#ea580c",
-    bg: "rgba(234,88,12,0.12)",
-  },
-  {
-    icon: `<path fill-rule="evenodd" d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" fill="currentColor"/>`,
-    label: "Guaranteed Work",
-    body: "Not happy? We make it right for free. Simple as that. Every job backed by our workmanship guarantee.",
-    color: "#10b981",
-    bg: "rgba(16,185,129,0.12)",
+    icon: `<path fill-rule="evenodd" d="M11.03 1.72a.75.75 0 0 1 .143.976l-4.5 6.5A.75.75 0 0 1 6 9H3.66l1.29 4.516a.75.75 0 0 1-1.348.646l-2-3.5a.75.75 0 0 1 .038-.802l4.5-6.5A.75.75 0 0 1 6 3h2.34l-.933-3.266A.75.75 0 0 1 8.66.036l2.37 1.684Z" clip-rule="evenodd" fill="currentColor"/>`,
+    label: "Locally Owned & Operated",
+    body: "Run by Travis, a Wylie neighbor and former Wylie ISD teacher of 14 years — not a franchise call center.",
+    color: "#b45309",
+    bg: "rgba(180,83,9,0.12)",
   },
   {
     icon: `<path fill-rule="evenodd" d="M1 2.75A.75.75 0 0 1 1.75 2h10.5a.75.75 0 0 1 0 1.5H12v9h.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H3v-9h-.25A.75.75 0 0 1 1 2.75ZM4.5 6a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6ZM4 9.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm.5 2.5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z" clip-rule="evenodd" fill="currentColor"/>`,
-    label: "Upfront Pricing",
-    body: "You see the price before we touch a thing. No surprise fees, no upsells, no awkward conversations.",
+    label: "Free Estimates",
+    body: "Know the price before any work starts. No surprise fees, no pressure to add on extra work.",
     color: "#3b82f6",
     bg: "rgba(59,130,246,0.12)",
   },
   {
+    icon: `<path fill-rule="evenodd" d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" fill="currentColor"/>`,
+    label: "Fast, Simple Quotes",
+    body: "Text a photo, get a quote back fast. Most jobs — including custom gate builds — scheduled within days.",
+    color: "#10b981",
+    bg: "rgba(16,185,129,0.12)",
+  },
+  {
     icon: `<path fill-rule="evenodd" d="M8.5 1.709a.75.75 0 0 0-1 0 8.963 8.963 0 0 1-4.84 2.217.75.75 0 0 0-.654.745v1.604a9.99 9.99 0 0 0 4.65 8.422.75.75 0 0 0 .788 0 9.99 9.99 0 0 0 4.65-8.422V4.67a.75.75 0 0 0-.654-.745A8.963 8.963 0 0 1 8.5 1.71Z" clip-rule="evenodd" fill="currentColor"/>`,
-    label: "Vetted Pros Only",
-    body: "Every technician is background-checked, licensed, and insured. You're always in safe hands.",
+    label: "Custom Solutions",
+    body: "Need a gate built from scratch, or a repair no one else wants to touch? We figure it out.",
     color: "#a78bfa",
     bg: "rgba(167,139,250,0.12)",
   },
@@ -38,9 +38,9 @@ const pillars = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="text-center mb-14" data-reveal>
       <span class="inline-block text-xs font-bold text-[var(--brand-600)] uppercase tracking-widest mb-3 bg-[var(--brand-50)] border border-[var(--brand-100)] rounded-full px-3 py-1">
-        Why Fix'd Fast?
+        Why {site.business}?
       </span>
-      <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Built different. Actually.</h2>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Done right. Actually.</h2>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" data-reveal-stagger>
@@ -61,7 +61,7 @@ const pillars = [
     <div class="mt-12 bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-8 flex flex-col sm:flex-row items-center justify-between gap-6" data-reveal>
       <div>
         <p class="text-lg font-bold text-slate-900">Ready to cross it off the list?</p>
-        <p class="text-sm text-slate-500 mt-1">Same-day service available in {site.city} and surrounding areas.</p>
+        <p class="text-sm text-slate-500 mt-1">Free estimates available in {site.city} and surrounding areas.</p>
       </div>
       <div class="flex gap-3 flex-shrink-0">
         <a href={`tel:${site.phone}`}

@@ -8,6 +8,7 @@ import { resolveImage } from "../utils/resolveImage";
 const title = `About ${site.business} | ${site.city}, ${site.state}`;
 const description = `${site.business} has served ${site.serviceAreas.join(", ")} for ${site.yearsInBusiness}+ years. Learn about our team and our approach.`;
 const aboutImage = resolveImage(site.images?.about);
+const reviewPlatform = site.reviewPlatform ?? "Google";
 ---
 
 <Base title={title} description={description}>
@@ -25,23 +26,20 @@ const aboutImage = resolveImage(site.images?.about);
   <!-- Two-column content -->
   <section class="max-w-5xl mx-auto px-4 sm:px-6 py-16 grid md:grid-cols-2 gap-12 items-start">
     <div class="space-y-5 text-slate-600 leading-relaxed" data-reveal-stagger>
-      <!--
-        Replace this placeholder copy with the client's real story.
-        Keep it specific and human — how the business started, what
-        they specialize in, why neighbors trust them.
-      -->
       <p class="text-lg text-slate-700 font-medium">
-        For {site.yearsInBusiness}+ years, {site.business} has provided honest,
-        reliable service to homeowners and businesses across{" "}
+        {site.business} is a locally owned handyman company serving{" "}
         {site.serviceAreas.join(", ")}.
       </p>
       <p>
-        [Replace with the owner's real story — how the business started,
-        what they specialize in, and what local customers can expect.]
+        Before picking up a toolbelt full-time, owner Travis spent 14 years
+        teaching in Wylie ISD. These days he brings that same patience and
+        attention to detail to fence and gate builds, tiling, appliance
+        installs, and the everyday repairs homeowners keep putting off.
       </p>
       <p>
-        We believe in straight answers and fair pricing — no surprise fees,
-        no upselling work you don't need. That approach has earned us{" "}
+        We believe in straight answers and fair pricing — a free estimate
+        before any work starts, no surprise fees, no upselling work you don't
+        need. That approach has earned us{" "}
         {site.googleReviewCount}+ five-star reviews from neighbors right here
         in {site.city} and the surrounding area.
       </p>
@@ -49,12 +47,12 @@ const aboutImage = resolveImage(site.images?.about);
       <!-- Trust stats row -->
       <div class="pt-4 grid grid-cols-2 gap-4">
         <div class="rounded-[var(--radius,0.75rem)] bg-[var(--brand-50)] border border-[var(--brand-100)] p-4">
-          <p class="text-3xl font-bold text-[var(--brand-700)]">{site.yearsInBusiness}+</p>
-          <p class="text-sm text-slate-500 mt-1">Years in business</p>
+          <p class="text-3xl font-bold text-[var(--brand-700)]">{site.googleRating}★</p>
+          <p class="text-sm text-slate-500 mt-1">Average rating</p>
         </div>
         <div class="rounded-[var(--radius,0.75rem)] bg-amber-50 border border-amber-100 p-4">
-          <p class="text-3xl font-bold text-amber-600">{site.googleRating}★</p>
-          <p class="text-sm text-slate-500 mt-1">{site.googleReviewCount}+ Google reviews</p>
+          <p class="text-3xl font-bold text-amber-600">{site.googleReviewCount}+</p>
+          <p class="text-sm text-slate-500 mt-1">{reviewPlatform} reviews</p>
         </div>
       </div>
 

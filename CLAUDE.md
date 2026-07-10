@@ -11,10 +11,11 @@ directly into a component or page. Every component reads from `site.ts`.
 If you find yourself typing a client's name into a `.astro` file, stop —
 that value should come from the config import instead.
 
-The repo currently contains a realistic demo business ("Fix'd Fast
-Handyman") filled into `site.ts` so the template is demo-ready out of the
-box. Replace every value in that file with the real client's details when
-starting a build — do not edit any other file to do so.
+The repo currently contains a realistic demo business ("Done Right
+Handyman Services", modeled on a real Yelp listing) filled into `site.ts`
+so the template is demo-ready out of the box. Replace every value in that
+file with the real client's details when starting a build — do not edit
+any other file to do so.
 
 ## Repository structure (as actually built)
 

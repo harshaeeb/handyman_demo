@@ -1,6 +1,8 @@
 ---
 // src/components/TrustBar.astro — light strip with 4 stat tiles
 import { site } from "../config/site";
+
+const reviewPlatform = site.reviewPlatform ?? "Google";
 ---
 
 <div class="relative overflow-hidden bg-white border-y border-slate-200">
@@ -30,7 +32,7 @@ import { site } from "../config/site";
       </div>
       <div>
         <p class="text-xl font-black text-slate-900">{site.googleRating}★</p>
-        <p class="text-xs text-slate-500">{site.googleReviewCount}+ Google Reviews</p>
+        <p class="text-xs text-slate-500">{site.googleReviewCount}+ {reviewPlatform} Reviews</p>
       </div>
     </div>
 
@@ -42,8 +44,8 @@ import { site } from "../config/site";
         </svg>
       </div>
       <div>
-        <p class="text-xl font-black text-slate-900">100%</p>
-        <p class="text-xs text-slate-500">Licensed & Insured</p>
+        <p class="text-xl font-black text-slate-900">Free</p>
+        <p class="text-xs text-slate-500">Estimates, Always</p>
       </div>
     </div>
 

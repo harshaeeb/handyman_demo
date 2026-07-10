@@ -14,14 +14,14 @@ interface Props {
 const { title, description } = Astro.props;
 const brandVars = generateBrandCssVars(site.brandColor);
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://fixdfast-demo.pages.dev");
-const ogImage = new URL("/og-default.png", Astro.site ?? "https://fixdfast-demo.pages.dev");
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://donerighthandyman-demo.pages.dev");
+const ogImage = new URL("/og-default.png", Astro.site ?? "https://donerighthandyman-demo.pages.dev");
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   name: site.business,
-  url: (Astro.site ?? "https://fixdfast-demo.pages.dev").toString().replace(/\/$/, ""),
+  url: (Astro.site ?? "https://donerighthandyman-demo.pages.dev").toString().replace(/\/$/, ""),
   description: site.tagline,
   telephone: site.phone,
   email: site.email,
@@ -34,7 +34,7 @@ const schema = {
     addressCountry: "US",
   },
   areaServed: site.serviceAreas,
-  openingHours: "Mo-Su 07:00-20:00",
+  openingHours: ["Mo-Sa 09:00-19:00", "Su 09:00-17:00"],
   sameAs: [site.googleReviewLink],
   aggregateRating: site.googleReviewCount
     ? {
