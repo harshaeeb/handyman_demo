@@ -1,5 +1,5 @@
 ---
-// src/components/WhyUs.astro — Gen Z "Why Fix'd Fast?" section with animated pillars
+// src/components/WhyUs.astro — "Why Fix'd Fast?" section, light theme
 import { site } from "../config/site";
 
 const pillars = [
@@ -34,36 +34,34 @@ const pillars = [
 ];
 ---
 
-<section class="relative py-20 overflow-hidden" style="background: linear-gradient(180deg, #0f0e0d 0%, #0c0a09 100%);">
-  <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);"></div>
-
+<section class="relative py-20 overflow-hidden bg-slate-50 border-t border-slate-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="text-center mb-14" data-reveal>
-      <span class="inline-block text-xs font-bold text-[var(--brand-400)] uppercase tracking-widest mb-3 border border-[var(--brand-800)] rounded-full px-3 py-1" style="background: rgba(234,88,12,0.1);">
+      <span class="inline-block text-xs font-bold text-[var(--brand-600)] uppercase tracking-widest mb-3 bg-[var(--brand-50)] border border-[var(--brand-100)] rounded-full px-3 py-1">
         Why Fix'd Fast?
       </span>
-      <h2 class="text-3xl sm:text-4xl font-black text-white">Built different. Actually.</h2>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Built different. Actually.</h2>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" data-reveal-stagger>
       {pillars.map((p) => (
-        <div class="glass card-lift bento-glow rounded-[var(--radius,1.25rem)] p-7 flex flex-col gap-5" style="border: 1px solid rgba(255,255,255,0.07);">
+        <div class="card-lift bento-glow bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-7 flex flex-col gap-5">
           <div class="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={`background: ${p.bg}; color: ${p.color};`}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-6 h-6" set:html={p.icon}></svg>
           </div>
           <div>
-            <h3 class="font-bold text-white text-base mb-2">{p.label}</h3>
-            <p class="text-sm text-white/50 leading-relaxed">{p.body}</p>
+            <h3 class="font-bold text-slate-900 text-base mb-2">{p.label}</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">{p.body}</p>
           </div>
         </div>
       ))}
     </div>
 
     <!-- Bottom CTA bar -->
-    <div class="mt-12 glass rounded-[var(--radius,1.25rem)] p-8 flex flex-col sm:flex-row items-center justify-between gap-6" style="border: 1px solid rgba(255,255,255,0.07);" data-reveal>
+    <div class="mt-12 bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-8 flex flex-col sm:flex-row items-center justify-between gap-6" data-reveal>
       <div>
-        <p class="text-lg font-bold text-white">Ready to cross it off the list?</p>
-        <p class="text-sm text-white/50 mt-1">Same-day service available in {site.city} and surrounding areas.</p>
+        <p class="text-lg font-bold text-slate-900">Ready to cross it off the list?</p>
+        <p class="text-sm text-slate-500 mt-1">Same-day service available in {site.city} and surrounding areas.</p>
       </div>
       <div class="flex gap-3 flex-shrink-0">
         <a href={`tel:${site.phone}`}
@@ -74,7 +72,7 @@ const pillars = [
           </svg>
           Call Now
         </a>
-        <a href="/contact" class="glass inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius,1.25rem)] font-bold text-white text-sm hover:bg-white/10 transition-colors">
+        <a href="/contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius,1.25rem)] font-bold text-slate-900 text-sm bg-white border border-slate-200 hover:bg-slate-50 transition-colors">
           Get a Quote
         </a>
       </div>

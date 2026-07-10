@@ -1,13 +1,13 @@
 ---
-// src/components/TrustBar.astro — dark strip with 4 animated stat tiles
+// src/components/TrustBar.astro — light strip with 4 stat tiles
 import { site } from "../config/site";
 ---
 
-<div class="relative overflow-hidden" style="background: linear-gradient(135deg, #111 0%, #1a1009 100%); border-top: 1px solid rgba(255,255,255,0.06);">
+<div class="relative overflow-hidden bg-white border-y border-slate-200">
   <!-- Subtle top accent line -->
   <div class="h-px w-full" style="background: linear-gradient(90deg, transparent, var(--brand-600), transparent);"></div>
 
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/5">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-200">
     <!-- Years -->
     <div class="flex items-center gap-3 px-4 py-3 md:py-0">
       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--brand-700), var(--brand-600));">
@@ -16,8 +16,8 @@ import { site } from "../config/site";
         </svg>
       </div>
       <div>
-        <p class="text-xl font-black text-white">{site.yearsInBusiness}+</p>
-        <p class="text-xs text-white/40">Years in Business</p>
+        <p class="text-xl font-black text-slate-900">{site.yearsInBusiness}+</p>
+        <p class="text-xs text-slate-500">Years in Business</p>
       </div>
     </div>
 
@@ -29,8 +29,8 @@ import { site } from "../config/site";
         </svg>
       </div>
       <div>
-        <p class="text-xl font-black text-white">{site.googleRating}★</p>
-        <p class="text-xs text-white/40">{site.googleReviewCount}+ Google Reviews</p>
+        <p class="text-xl font-black text-slate-900">{site.googleRating}★</p>
+        <p class="text-xs text-slate-500">{site.googleReviewCount}+ Google Reviews</p>
       </div>
     </div>
 
@@ -42,8 +42,8 @@ import { site } from "../config/site";
         </svg>
       </div>
       <div>
-        <p class="text-xl font-black text-white">100%</p>
-        <p class="text-xs text-white/40">Licensed & Insured</p>
+        <p class="text-xl font-black text-slate-900">100%</p>
+        <p class="text-xs text-slate-500">Licensed & Insured</p>
       </div>
     </div>
 
@@ -55,8 +55,8 @@ import { site } from "../config/site";
         </svg>
       </div>
       <div>
-        <p class="text-xl font-black text-white">{site.serviceAreas.length}</p>
-        <p class="text-xs text-white/40">Cities Served</p>
+        <p class="text-xl font-black text-slate-900">{site.serviceAreas.length}</p>
+        <p class="text-xs text-slate-500">Cities Served</p>
       </div>
     </div>
   </div>

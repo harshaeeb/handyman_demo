@@ -1,5 +1,5 @@
 ---
-// src/components/Hero.astro — Gen Z dark hero with animated orbs + glassmorphism
+// src/components/Hero.astro — light hero matching the About page's look
 import { site } from "../config/site";
 import { resolveImage } from "../utils/resolveImage";
 import TrustBar from "./TrustBar.astro";
@@ -9,31 +9,30 @@ const showTrustBar = site.theme?.showTrustBar !== false;
 const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).join(", ")} & nearby`;
 ---
 
-<section class="hero-dark noise-overlay grid-overlay" style="min-height: 92vh; display: flex; flex-direction: column; justify-content: center;">
-  <!-- Animated gradient orbs -->
-  <div class="orb orb-1" aria-hidden="true"></div>
-  <div class="orb orb-2" aria-hidden="true"></div>
-  <div class="orb orb-3" aria-hidden="true"></div>
+<section class="relative overflow-hidden bg-gradient-to-b from-[var(--brand-50)] to-white" style="min-height: 92vh; display: flex; flex-direction: column; justify-content: center;">
+  <!-- Soft brand-tinted accent blobs -->
+  <div class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[var(--brand-200)] opacity-40 blur-3xl" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute bottom-0 -left-24 w-72 h-72 rounded-full bg-[var(--brand-100)] opacity-50 blur-3xl" aria-hidden="true"></div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 grid md:grid-cols-2 gap-12 items-center">
 
     <!-- Left: text -->
     <div data-reveal-stagger>
       <!-- Eyebrow chip -->
-      <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 mb-6">
-        <span class="w-2 h-2 rounded-full bg-[var(--brand-400)] animate-pulse flex-shrink-0"></span>
-        <span class="text-sm font-semibold text-[var(--brand-300)] tracking-wide">{eyebrow}</span>
+      <div class="inline-flex items-center gap-2 bg-white border border-[var(--brand-100)] shadow-sm rounded-full px-4 py-1.5 mb-6">
+        <span class="w-2 h-2 rounded-full bg-[var(--brand-500)] animate-pulse flex-shrink-0"></span>
+        <span class="text-sm font-semibold text-[var(--brand-700)] tracking-wide">{eyebrow}</span>
       </div>
 
       <!-- Headline -->
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight">
-        <span class="shimmer-text">{site.tagline.split("—")[0]}</span>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight text-slate-900">
+        {site.tagline.split("—")[0]}
         {site.tagline.includes("—") && (
-          <span class="block text-white/80 mt-1">— {site.tagline.split("—")[1]?.trim()}</span>
+          <span class="block text-slate-500 mt-1">— {site.tagline.split("—")[1]?.trim()}</span>
         )}
       </h1>
 
-      <p class="mt-5 text-lg text-white/60 leading-relaxed max-w-xl">
+      <p class="mt-5 text-lg text-slate-600 leading-relaxed max-w-xl">
         {site.yearsInBusiness}+ years in {site.city} · {site.googleReviewCount}+ five-star reviews ·
         same-day appointments available.
       </p>
@@ -52,7 +51,7 @@ const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).joi
         </a>
         <a
           href="/contact"
-          class="glass inline-flex items-center gap-2 px-7 py-3.5 rounded-[var(--radius,1.25rem)] font-bold text-white text-base hover:bg-white/10 transition-colors"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[var(--radius,1.25rem)] font-bold text-slate-900 text-base bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors"
         >
           Get a Free Quote
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
@@ -65,13 +64,13 @@ const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).joi
       <div class="mt-8 flex items-center gap-4">
         <div class="flex -space-x-2">
           {["Z","M","P","A"].map((initial, i) => (
-            <div class="w-8 h-8 rounded-full ring-2 ring-[#0c0a09] flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+            <div class="w-8 h-8 rounded-full ring-2 ring-white flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
                  style={`background: linear-gradient(135deg, hsl(${20 + i * 35}, 80%, 50%), hsl(${50 + i * 30}, 70%, 45%));`}>
               {initial}
             </div>
           ))}
         </div>
-        <div class="text-sm text-white/60">
+        <div class="text-sm text-slate-500">
           <span class="flex gap-0.5 mb-0.5">
             {Array.from({length:5}).map(() => (
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" class="w-3 h-3 text-amber-400">
@@ -79,7 +78,7 @@ const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).joi
               </svg>
             ))}
           </span>
-          <strong class="text-white">{site.googleRating}</strong> · {site.googleReviewCount}+ reviews
+          <strong class="text-slate-900">{site.googleRating}</strong> · {site.googleReviewCount}+ reviews
         </div>
       </div>
     </div>
@@ -87,7 +86,7 @@ const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).joi
     <!-- Right: bento visual grid (shown when no hero photo) -->
     <div data-reveal class="relative">
       {heroImage ? (
-        <div class="aspect-[4/3] rounded-[var(--radius,1.25rem)] overflow-hidden ring-1 ring-white/10 shadow-2xl">
+        <div class="aspect-[4/3] rounded-[var(--radius,1.25rem)] overflow-hidden ring-1 ring-slate-200 shadow-2xl">
           <img
             src={heroImage}
             alt={`${site.business} handyman team in ${site.city}, ${site.state}`}
@@ -98,15 +97,15 @@ const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).joi
         </div>
       ) : (
         <div class="grid grid-cols-2 gap-3">
-          <div class="glass bento-glow card-lift rounded-[var(--radius,1.25rem)] p-6 flex flex-col justify-between" style="aspect-ratio:1;">
+          <div class="bento-glow card-lift bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-6 flex flex-col justify-between" style="aspect-ratio:1;">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--brand-600), #f97316);">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="w-5 h-5">
                 <path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z" />
               </svg>
             </div>
             <div>
-              <p class="text-4xl font-black text-white">{site.yearsInBusiness}+</p>
-              <p class="text-sm text-white/50 mt-0.5">Years in {site.city}</p>
+              <p class="text-4xl font-black text-slate-900">{site.yearsInBusiness}+</p>
+              <p class="text-sm text-slate-500 mt-0.5">Years in {site.city}</p>
             </div>
           </div>
 
@@ -118,21 +117,21 @@ const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).joi
             </div>
           </div>
 
-          <div class="glass bento-glow card-lift rounded-[var(--radius,1.25rem)] p-6 flex flex-col justify-between" style="aspect-ratio:1;">
-            <div class="text-white/50 text-sm">Services offered</div>
+          <div class="bento-glow card-lift bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-6 flex flex-col justify-between" style="aspect-ratio:1;">
+            <div class="text-slate-500 text-sm">Services offered</div>
             <div>
               <p class="text-5xl font-black gradient-text">{site.services.length}</p>
-              <p class="text-sm text-white/50 mt-1">& counting</p>
+              <p class="text-sm text-slate-500 mt-1">& counting</p>
             </div>
           </div>
 
-          <div class="glass bento-glow card-lift rounded-[var(--radius,1.25rem)] p-6 flex flex-col items-center justify-center gap-3 text-center" style="aspect-ratio:1;">
+          <div class="bento-glow card-lift bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-6 flex flex-col items-center justify-center gap-3 text-center" style="aspect-ratio:1;">
             <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: rgba(34,197,94,0.15);">
               <div class="w-4 h-4 rounded-full bg-green-400 animate-pulse"></div>
             </div>
             <div>
-              <p class="text-sm font-bold text-white">Same-Day</p>
-              <p class="text-xs text-white/50">Available Now</p>
+              <p class="text-sm font-bold text-slate-900">Same-Day</p>
+              <p class="text-xs text-slate-500">Available Now</p>
             </div>
           </div>
         </div>
@@ -155,9 +154,9 @@ const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).joi
 
   <!-- Scroll hint -->
   <div class="relative z-10 flex justify-center pb-8">
-    <div class="flex flex-col items-center gap-1 opacity-30">
-      <span class="text-xs text-white tracking-widest uppercase">Scroll</span>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4 animate-bounce">
+    <div class="flex flex-col items-center gap-1 opacity-40">
+      <span class="text-xs text-slate-400 tracking-widest uppercase">Scroll</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 text-slate-400 animate-bounce">
         <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
       </svg>
     </div>
