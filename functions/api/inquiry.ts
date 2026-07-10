@@ -12,13 +12,7 @@
 // Hosting Strategy document for the reasoning.
 
 import { site } from "../../src/config/site";
-
-interface Env {
-  RESEND_API_KEY: string;
-  TWILIO_ACCOUNT_SID?: string;
-  TWILIO_AUTH_TOKEN?: string;
-  TWILIO_FROM_NUMBER?: string;
-}
+import type { Env } from "../../src/types/env";
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   try {
@@ -61,13 +55,20 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     });
 
     // --- 2. If the SMS upsell is active for this client, also text the owner ---
+    // The email above is the notification of record — an SMS failure here
+    // must not turn a successful lead into a user-facing error, so it's
+    // caught and logged rather than propagated to the outer try/catch.
     if (site.features?.smsForwarding && site.ownerCell) {
-      await sendSmsViaTwilio(env, {
-        name, phone, message,
-        // MMS media must be a publicly reachable URL in production —
-        // see the note in sendSmsViaTwilio() below for the recommended approach.
-        mediaUrl: null,
-      });
+      try {
+        await sendSmsViaTwilio(env, {
+          name, phone, message,
+          // MMS media must be a publicly reachable URL in production —
+          // see the note in sendSmsViaTwilio() below for the recommended approach.
+          mediaUrl: null,
+        });
+      } catch (err) {
+        console.error("inquiry.ts SMS forward error (email already sent):", err);
+      }
     }
 
     return jsonResponse({ ok: true });
@@ -91,8 +92,13 @@ async function sendEmailViaResend(
     ? [{ filename: data.photoFilename ?? "photo.jpg", content: data.photoBase64 }]
     : undefined;
 
+  // Prefer the client's verified sending address once set; otherwise fall
+  // back to Resend's shared address, which works without domain
+  // verification (see RESEND_FROM_EMAIL in src/types/env.d.ts).
+  const fromAddress = env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+
   const body: Record<string, unknown> = {
-    from: `${site.business} Website <inquiries@${site.emailDomain ?? "yourdomain.com"}>`,
+    from: `${site.business} Website <${fromAddress}>`,
     to: [site.email],
     subject: `New inquiry from ${data.name} \u2014 ${site.business}`,
     text: [

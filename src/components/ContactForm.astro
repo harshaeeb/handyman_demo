@@ -79,14 +79,28 @@ import { site } from "../config/site";
   // Progressive enhancement: submit via fetch so the user gets inline
   // feedback instead of a full page reload, but the form still works
   // (via native POST + redirect) if JS fails to load.
+  const MAX_PHOTO_BYTES = 5 * 1024 * 1024; // 5 MB — must match functions/api/inquiry.ts
+
   const form = document.getElementById("inquiry-form") as HTMLFormElement | null;
   const status = document.getElementById("inquiry-status");
+  const photoInput = document.getElementById("photo") as HTMLInputElement | null;
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!status) return;
 
     const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+    // Reject an oversized photo before spending the time/bandwidth to upload
+    // it — the server enforces the same limit, but catching it client-side
+    // gives instant feedback instead of a full round trip.
+    const photo = photoInput?.files?.[0];
+    if (photo && photo.size > MAX_PHOTO_BYTES) {
+      status.textContent = "Photo is too large (max 5MB). Please choose a smaller file.";
+      status.className = "text-sm text-red-600 font-medium";
+      return;
+    }
+
     if (submitBtn) submitBtn.disabled = true;
     status.textContent = "Sending...";
     status.className = "text-sm text-slate-500";

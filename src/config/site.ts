@@ -37,7 +37,6 @@ export interface SiteConfig {
   phone: string;
   phoneDisplay: string;
   email: string;
-  emailDomain: string;
   address: string;
   city: string;
   state: string;
@@ -69,7 +68,6 @@ export const site: SiteConfig = {
   phone: "+19725550199",
   phoneDisplay: "(972) 555-0199",
   email: "hello@fixdfast.com",
-  emailDomain: "fixdfast.com",
   address: "456 Commerce Dr, Frisco, TX 75034",
   city: "Frisco",
   state: "TX",

@@ -11,9 +11,9 @@ directly into a component or page. Every component reads from `site.ts`.
 If you find yourself typing a client's name into a `.astro` file, stop —
 that value should come from the config import instead.
 
-The repo currently contains a realistic demo business ("Smith Plumbing
-Co.") filled into `site.ts` so the template is demo-ready out of the box.
-Replace every value in that file with the real client's details when
+The repo currently contains a realistic demo business ("Fix'd Fast
+Handyman") filled into `site.ts` so the template is demo-ready out of the
+box. Replace every value in that file with the real client's details when
 starting a build — do not edit any other file to do so.
 
 ## Repository structure (as actually built)
@@ -56,19 +56,15 @@ website-template/
 When given a new client's details, do the following in order:
 
 1. Open `src/config/site.ts` and replace every value: `business`, `tagline`,
-   `url` (the client's real production domain, e.g. `https://smithplumbing.com`),
-   `phone`, `phoneDisplay`, `email`, `emailDomain`, `address`, `city`,
+   `phone`, `phoneDisplay`, `email`, `address`, `city`,
    `state`, `zip`, `serviceAreas`, `services` (name/slug/descriptions),
    `brandColor`, `yearsInBusiness`, `googleReviewLink`, `googleRating`,
    `googleReviewCount`.
-   **`url` is now the single source of truth for the domain** — `astro.config.mjs`
-   reads from it automatically, so you no longer need to update both files separately.
-   `validateConfig()` will throw at build time if `url` is still the placeholder.
 2. Set each flag in `features` based on what the client purchased:
    - `reviewsWidget: true` → also confirm the reviews widget embed snippet/ID is available, and wire it into the placeholder block in `ReviewsWidget.astro`.
    - `booking: true` → fill in `calLink` once the client's Cal.com account is set up.
    - `smsForwarding: true` → fill in `ownerCell` in E.164 format (e.g. `+19725550148`), and set the `TWILIO_*` environment variables in Cloudflare Pages.
-3. `astro.config.mjs` now reads `site:` directly from `site.ts` — no separate update needed. Canonical URLs, sitemap, and og:image tags are all driven from `site.url`.
+3. Update `site:` in `astro.config.mjs` to the client's real production domain (e.g. `https://smithplumbing.com`) — this is a separate manual step, not derived from `site.ts`. Canonical URLs, sitemap, and og:image tags in `Base.astro` are all driven from `Astro.site`, which comes from this value.
 4. Each entry in `services` automatically gets its own page at `/services/[slug]` via `getStaticPaths` in `src/pages/services/[slug].astro` — you do not need to create pages manually. If the client serves multiple distinct towns with meaningfully different content, activate `src/pages/service-areas/[area].astro` (see instructions inside that file) rather than building from scratch.
 5. Replace the placeholder copy in `about.astro` (marked with a `[Replace with...]` bracket) with the client's real story.
 6. Place client-provided images in `public/images/` and reference them from `Hero.astro` and elsewhere — do not use stock photos unless explicitly provided. `Hero.astro` currently has a plain placeholder box for this reason.
