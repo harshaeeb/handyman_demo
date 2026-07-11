@@ -17,13 +17,15 @@ import { site } from "../config/site";
 
     <!-- Desktop nav -->
     <nav class="hidden md:flex items-center gap-1 text-sm font-bold text-slate-600">
+      <a href="/" class="px-3.5 py-2 rounded-full hover:bg-slate-900/5 hover:text-slate-900 transition-colors">Home</a>
       <a href="/services" class="px-3.5 py-2 rounded-full hover:bg-slate-900/5 hover:text-slate-900 transition-colors">Services</a>
       <a href="/about" class="px-3.5 py-2 rounded-full hover:bg-slate-900/5 hover:text-slate-900 transition-colors">About</a>
       <a href="/contact" class="px-3.5 py-2 rounded-full hover:bg-slate-900/5 hover:text-slate-900 transition-colors">Contact</a>
+      <a href="/book" class="px-3.5 py-2 rounded-full hover:bg-slate-900/5 hover:text-slate-900 transition-colors">Book Appointment</a>
     </nav>
 
     <!-- CTA -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 sm:gap-3">
       <a href={`tel:${site.phone}`}
          class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold text-white pop-shadow"
          style="background: linear-gradient(135deg, var(--brand-600), #ec4899);">
@@ -31,6 +33,15 @@ import { site } from "../config/site";
           <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511Z" clip-rule="evenodd" />
         </svg>
         {site.phoneDisplay}
+      </a>
+
+      <!-- Book Appointment CTA — present on every page since Header is global -->
+      <a href="/book"
+         class="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold text-slate-900 border-2 border-slate-900/10 glass-light">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5">
+          <path fill-rule="evenodd" d="M4.75 0a.75.75 0 0 1 .75.75V2h5V.75a.75.75 0 0 1 1.5 0V2h1A2.75 2.75 0 0 1 15.75 4.75v8.5A2.75 2.75 0 0 1 13 16H3a2.75 2.75 0 0 1-2.75-2.75v-8.5A2.75 2.75 0 0 1 3 2h1V.75A.75.75 0 0 1 4.75 0ZM3.5 6a.5.5 0 0 0-.5.5V13c0 .69.56 1.25 1.25 1.25h9.5c.69 0 1.25-.56 1.25-1.25V6.5a.5.5 0 0 0-.5-.5h-11Z" clip-rule="evenodd" />
+        </svg>
+        Book Appointment
       </a>
 
       <!-- Mobile menu button -->
@@ -44,9 +55,11 @@ import { site } from "../config/site";
 
   <!-- Mobile menu -->
   <div id="mobile-menu" style="display:none;" class="md:hidden border-t border-slate-900/5 glass-light px-4 py-4 space-y-1 text-sm font-bold">
+    <a href="/" class="block py-2.5 px-3 rounded-2xl text-slate-700 hover:bg-slate-900/5">Home</a>
     <a href="/services" class="block py-2.5 px-3 rounded-2xl text-slate-700 hover:bg-slate-900/5">Services</a>
     <a href="/about" class="block py-2.5 px-3 rounded-2xl text-slate-700 hover:bg-slate-900/5">About</a>
     <a href="/contact" class="block py-2.5 px-3 rounded-2xl text-slate-700 hover:bg-slate-900/5">Contact</a>
+    <a href="/book" class="block py-2.5 px-3 rounded-2xl text-slate-700 hover:bg-slate-900/5">Book Appointment</a>
     <a href={`tel:${site.phone}`} class="block py-2.5 px-3 font-bold" style="color: var(--brand);">{site.phoneDisplay}</a>
   </div>
 </header>

@@ -23,10 +23,20 @@ export default function StatCounter({
   const ref = useRef<HTMLParagraphElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
   const reduceMotion = useReducedMotion();
-  const [display, setDisplay] = useState(reduceMotion ? value : 0);
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (!isInView || reduceMotion) return;
+    if (!isInView) return;
+    // useReducedMotion() reports null/false on the very first render (it
+    // can't synchronously read the media query before mount), so it can't
+    // be trusted as a useState initializer — that left this permanently
+    // stuck at 0 for anyone with reduced-motion enabled, since the old
+    // effect bailed out here without ever setting the real value. Set it
+    // explicitly instead of relying on mount-time state.
+    if (reduceMotion) {
+      setDisplay(value);
+      return;
+    }
     const controls = animate(0, value, {
       duration,
       ease: [0.16, 1, 0.3, 1],

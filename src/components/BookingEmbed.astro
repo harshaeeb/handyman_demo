@@ -13,6 +13,14 @@
 // moment calLink is filled in — no other change needed.
 import { site } from "../config/site";
 
+interface Props {
+  // Suppress the internal h2 block when the host page supplies its own
+  // <h1> for this content (e.g. the dedicated /book page) — avoids two
+  // stacked "Book an Appointment" headings.
+  hideHeading?: boolean;
+}
+const { hideHeading = false } = Astro.props;
+
 const { features, calLink } = site;
 const mockDays = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 const availableDays = new Set([5, 8, 9, 12, 15, 16]);
@@ -23,13 +31,15 @@ const mockTimes = ["9:00 AM", "10:30 AM", "1:00 PM", "2:30 PM", "4:00 PM"];
 {features.booking && calLink && (
   <section class="py-16 mesh-bg grain">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-8" data-reveal>
-        <span class="sticker inline-block text-xs font-bold text-[var(--brand-600)] uppercase tracking-widest mb-3 bg-white border-2 border-[var(--brand-100)] rounded-full px-3 py-1">
-          Book Online
-        </span>
-        <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900">Book an <span class="gradient-text-loud">Appointment</span></h2>
-        <p class="mt-2 text-slate-600">Pick a service and a time that works for you — confirmed instantly.</p>
-      </div>
+      {!hideHeading && (
+        <div class="text-center mb-8" data-reveal>
+          <span class="sticker inline-block text-xs font-bold text-[var(--brand-600)] uppercase tracking-widest mb-3 bg-white border-2 border-[var(--brand-100)] rounded-full px-3 py-1">
+            Book Online
+          </span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900">Book an <span class="gradient-text-loud">Appointment</span></h2>
+          <p class="mt-2 text-slate-600">Pick a service and a time that works for you — confirmed instantly.</p>
+        </div>
+      )}
 
       <!-- Cal.com inline embed container -->
       <div id="cal-booking-embed" class="pop-shadow rounded-[1.5rem] border-2 border-slate-900/5 overflow-hidden min-h-[600px]" data-reveal></div>
@@ -79,13 +89,15 @@ const mockTimes = ["9:00 AM", "10:30 AM", "1:00 PM", "2:30 PM", "4:00 PM"];
 {features.booking && !calLink && (
   <section class="py-16 mesh-bg grain">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-8" data-reveal>
-        <span class="sticker inline-block text-xs font-bold text-[var(--brand-600)] uppercase tracking-widest mb-3 bg-white border-2 border-[var(--brand-100)] rounded-full px-3 py-1">
-          Book Online
-        </span>
-        <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900">Book an <span class="gradient-text-loud">Appointment</span></h2>
-        <p class="mt-2 text-slate-600">Pick a service and a time that works for you — confirmed instantly.</p>
-      </div>
+      {!hideHeading && (
+        <div class="text-center mb-8" data-reveal>
+          <span class="sticker inline-block text-xs font-bold text-[var(--brand-600)] uppercase tracking-widest mb-3 bg-white border-2 border-[var(--brand-100)] rounded-full px-3 py-1">
+            Book Online
+          </span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900">Book an <span class="gradient-text-loud">Appointment</span></h2>
+          <p class="mt-2 text-slate-600">Pick a service and a time that works for you — confirmed instantly.</p>
+        </div>
+      )}
 
       <!-- Static design mockup — swapped for the real Cal.com embed once
            site.ts `calLink` is filled in (see the block above). Everything
