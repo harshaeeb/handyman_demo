@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
 
+import react from '@astrojs/react';
+
 // IMPORTANT: `site` must be set to the client's real production domain
 // before launch — Astro needs it to generate correct absolute URLs in the
 // sitemap and canonical tags. Update this on every new client build.
@@ -16,5 +18,5 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap()]
+  integrations: [sitemap(), react()]
 });

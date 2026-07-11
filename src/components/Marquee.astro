@@ -1,0 +1,29 @@
+---
+// src/components/Marquee.astro — infinite scrolling badge ticker, pure CSS
+// (content is duplicated once so the loop reads seamlessly at -50% transform)
+interface Props {
+  items: string[];
+  icon?: "pin" | "check";
+}
+const { items, icon = "pin" } = Astro.props;
+const loopItems = [...items, ...items];
+---
+
+<div class="marquee-row relative overflow-hidden py-3" style="mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);">
+  <div class="marquee-track gap-3">
+    {loopItems.map((item) => (
+      <span class="sticker inline-flex items-center gap-1.5 bg-white border-2 border-slate-900/5 shadow-sm rounded-full px-4 py-2 text-sm font-bold text-slate-700 whitespace-nowrap mx-1.5">
+        {icon === "pin" ? (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5 text-[var(--brand-500)] flex-shrink-0">
+            <path fill-rule="evenodd" d="M8 1a5 5 0 0 0-5 5c0 3.536 4.24 8.3 4.762 8.87a.329.329 0 0 0 .476 0C8.76 14.3 13 9.536 13 6a5 5 0 0 0-5-5Zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" clip-rule="evenodd" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0">
+            <path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
+          </svg>
+        )}
+        {item}
+      </span>
+    ))}
+  </div>
+</div>

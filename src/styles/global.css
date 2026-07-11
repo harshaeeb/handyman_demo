@@ -21,6 +21,14 @@
   --text-7xl:  4.95rem;    /* 4.5rem   * 1.1 */
 }
 
+/* ─── Force light color-scheme ─────────────────────────────────────────────
+   This template is light-theme only. Without this, Tailwind's preflight
+   sets `color-scheme: light dark`, and browsers in OS dark mode paint a
+   black canvas behind any section lacking an explicit background. */
+:root {
+  color-scheme: light;
+}
+
 /* ─── Static brand fallbacks (orange #ea580c) ─────────────────────────────── */
 :root {
   --brand-50:  #fff7ed;
@@ -178,4 +186,122 @@
 @keyframes border-rotate {
   from { --angle: 0deg; }
   to   { --angle: 360deg; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Gen Z redesign layer — light, loud, textured. Additive to the rules
+   above; nothing above this line was removed so the base template still
+   works if this section is stripped out.
+   ══════════════════════════════════════════════════════════════════════ */
+
+.font-display {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ─── Vivid multi-stop gradient text (headline accent) ─────────────────── */
+.gradient-text-loud {
+  background: linear-gradient(90deg, #f97316, #ec4899, #8b5cf6, #06b6d4, #f97316);
+  background-size: 300% 100%;
+  animation: gradient-shift 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Mesh-gradient section background ──────────────────────────────────
+   Apply to a `position: relative` ancestor. Decorative accent colors are
+   fixed (not brand-driven) by design, same convention as the existing
+   avatar/icon accent colors elsewhere in this file. */
+.mesh-bg {
+  position: relative;
+  isolation: isolate;
+  background: #fffaf3;
+}
+.mesh-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 55% 50% at 12% 18%, rgba(244, 114, 182, 0.30), transparent 70%),
+    radial-gradient(ellipse 50% 45% at 88% 12%, rgba(129, 140, 248, 0.28), transparent 70%),
+    radial-gradient(ellipse 55% 50% at 50% 95%, color-mix(in srgb, var(--brand-400) 35%, transparent), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 92% 85%, rgba(45, 212, 191, 0.25), transparent 70%);
+}
+
+/* ─── Grain texture overlay — adds tactile warmth over flat gradients ──── */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Morphing blob shapes ──────────────────────────────────────────────── */
+@keyframes blob-morph {
+  0%, 100% { border-radius: 42% 58% 65% 35% / 45% 45% 55% 55%; }
+  34%      { border-radius: 62% 38% 47% 53% / 41% 61% 39% 59%; }
+  67%      { border-radius: 38% 62% 63% 37% / 65% 32% 68% 35%; }
+}
+.blob {
+  animation: blob-morph 12s ease-in-out infinite;
+}
+
+/* ─── Infinite marquee ──────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 26s linear infinite;
+}
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ─── Sticker badge (rotated, hard-shadow "stamped" look) ───────────────── */
+.sticker {
+  transform: rotate(-4deg);
+  box-shadow: 0 5px 0 0 rgba(15, 23, 42, 0.08);
+}
+
+/* ─── Chunky pop-shadow card — comic-adjacent depth without literal outline */
+.pop-shadow {
+  box-shadow: 0 2px 0 rgba(15,23,42,0.04), 0 14px 30px -10px color-mix(in srgb, var(--brand) 35%, transparent);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.pop-shadow:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+}
+
+/* ─── Spotlight cursor glow (JS sets --mx/--my custom props) ───────────── */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  left: var(--mx, 50%);
+  top: var(--my, 50%);
+  width: 420px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand-400) 35%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.spotlight:hover::before {
+  opacity: 1;
 }

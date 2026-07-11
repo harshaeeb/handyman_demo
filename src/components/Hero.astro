@@ -1,93 +1,42 @@
 ---
-// src/components/Hero.astro — light hero matching the About page's look
+// src/components/Hero.astro — Gen Z redesign: mesh-gradient bg, grain
+// texture, animated headline/blobs/magnetic CTAs via the HeroAnimated
+// island, service-area marquee. Content still comes entirely from site.ts.
 import { site } from "../config/site";
 import { resolveImage } from "../utils/resolveImage";
 import TrustBar from "./TrustBar.astro";
+import Marquee from "./Marquee.astro";
+import HeroAnimated from "./react/HeroAnimated";
 
 const heroImage = resolveImage(site.images?.hero);
 const showTrustBar = site.theme?.showTrustBar !== false;
 const eyebrow = site.heroEyebrow ?? `Serving ${site.serviceAreas.slice(0, 3).join(", ")} & nearby`;
 const reviewPlatform = site.reviewPlatform ?? "Google";
+
+const [taglineMain, taglineAccent] = site.tagline.includes("—")
+  ? [site.tagline.split("—")[0]!.trim(), site.tagline.split("—")[1]?.trim()]
+  : [site.tagline, undefined];
 ---
 
-<section class="relative overflow-hidden bg-gradient-to-b from-[var(--brand-50)] to-white" style="min-height: 92vh; display: flex; flex-direction: column; justify-content: center;">
-  <!-- Soft brand-tinted accent blobs -->
-  <div class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[var(--brand-200)] opacity-40 blur-3xl" aria-hidden="true"></div>
-  <div class="pointer-events-none absolute bottom-0 -left-24 w-72 h-72 rounded-full bg-[var(--brand-100)] opacity-50 blur-3xl" aria-hidden="true"></div>
-
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 grid md:grid-cols-2 gap-12 items-center">
-
-    <!-- Left: text -->
-    <div data-reveal-stagger>
-      <!-- Eyebrow chip -->
-      <div class="inline-flex items-center gap-2 bg-white border border-[var(--brand-100)] shadow-sm rounded-full px-4 py-1.5 mb-6">
-        <span class="w-2 h-2 rounded-full bg-[var(--brand-500)] animate-pulse flex-shrink-0"></span>
-        <span class="text-sm font-semibold text-[var(--brand-700)] tracking-wide">{eyebrow}</span>
-      </div>
-
-      <!-- Headline -->
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight text-slate-900">
-        {site.tagline.split("—")[0]}
-        {site.tagline.includes("—") && (
-          <span class="block text-slate-500 mt-1">— {site.tagline.split("—")[1]?.trim()}</span>
-        )}
-      </h1>
-
-      <p class="mt-5 text-lg text-slate-600 leading-relaxed max-w-xl">
-        Serving {site.city} · {site.googleReviewCount}+ five-star reviews ·
-        free estimates on every job.
-      </p>
-
-      <!-- CTAs -->
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a
-          href={`tel:${site.phone}`}
-          class="cta-ping animate-gradient inline-flex items-center gap-2 px-7 py-3.5 rounded-[var(--radius,1.25rem)] font-bold text-white text-base shadow-xl"
-          style="background: linear-gradient(135deg, var(--brand-600) 0%, var(--brand-500) 50%, #fb923c 100%);"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 flex-shrink-0">
-            <path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h1.148a1.5 1.5 0 0 1 1.465 1.175l.716 3.223a1.5 1.5 0 0 1-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 0 0 6.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 0 1 1.767-1.052l3.223.716A1.5 1.5 0 0 1 18 15.352V16.5a1.5 1.5 0 0 1-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 0 1 2.43 8.326 13.019 13.019 0 0 1 2 5V3.5Z" />
-          </svg>
-          Call {site.phoneDisplay}
-        </a>
-        <a
-          href="/contact"
-          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-[var(--radius,1.25rem)] font-bold text-slate-900 text-base bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors"
-        >
-          Get a Free Quote
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
-            <path fill-rule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </div>
-
-      <!-- Social proof row -->
-      <div class="mt-8 flex items-center gap-4">
-        <div class="flex -space-x-2">
-          {["Z","M","P","A"].map((initial, i) => (
-            <div class="w-8 h-8 rounded-full ring-2 ring-white flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-                 style={`background: linear-gradient(135deg, hsl(${20 + i * 35}, 80%, 50%), hsl(${50 + i * 30}, 70%, 45%));`}>
-              {initial}
-            </div>
-          ))}
-        </div>
-        <div class="text-sm text-slate-500">
-          <span class="flex gap-0.5 mb-0.5">
-            {Array.from({length:5}).map(() => (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" class="w-3 h-3 text-amber-400">
-                <path d="M5.47.31a.6.6 0 0 1 1.06 0l1.13 2.29 2.52.37a.6.6 0 0 1 .33 1.02L8.67 5.8l.43 2.52a.6.6 0 0 1-.87.63L6 7.74 3.77 8.95a.6.6 0 0 1-.87-.63l.43-2.52L1.49 3.99a.6.6 0 0 1 .33-1.02l2.52-.37L5.47.31Z"/>
-              </svg>
-            ))}
-          </span>
-          <strong class="text-slate-900">{site.googleRating}</strong> · {site.googleReviewCount}+ reviews
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: bento visual grid (shown when no hero photo) -->
-    <div data-reveal class="relative">
-      {heroImage ? (
-        <div class="aspect-[4/3] rounded-[var(--radius,1.25rem)] overflow-hidden ring-1 ring-slate-200 shadow-2xl">
+<section class="mesh-bg grain relative overflow-hidden" style="min-height: 92vh; display: flex; flex-direction: column; justify-content: center;">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-28 w-full">
+    {heroImage ? (
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <HeroAnimated
+          client:load
+          eyebrow={eyebrow}
+          taglineMain={taglineMain}
+          taglineAccent={taglineAccent}
+          city={site.city}
+          reviewCount={site.googleReviewCount}
+          rating={site.googleRating}
+          phone={site.phone}
+          phoneDisplay={site.phoneDisplay}
+          yearsInBusiness={site.yearsInBusiness}
+          servicesCount={site.services.length}
+          reviewPlatform={reviewPlatform}
+        />
+        <div class="pop-shadow aspect-[4/3] rounded-[1.5rem] overflow-hidden">
           <img
             src={heroImage}
             alt={`${site.business} handyman team in ${site.city}, ${site.state}`}
@@ -96,65 +45,31 @@ const reviewPlatform = site.reviewPlatform ?? "Google";
             fetchpriority="high"
           />
         </div>
-      ) : (
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bento-glow card-lift bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-6 flex flex-col justify-between" style="aspect-ratio:1;">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--brand-600), #f97316);">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="w-5 h-5">
-                <path d="M11.983 1.907a.75.75 0 0 0-1.292-.657l-8.5 9.5A.75.75 0 0 0 2.75 12h6.572l-1.305 6.093a.75.75 0 0 0 1.292.657l8.5-9.5A.75.75 0 0 0 17.25 8h-6.572l1.305-6.093Z" />
-              </svg>
-            </div>
-            <div>
-              <p class="text-4xl font-black text-slate-900">{site.yearsInBusiness}+</p>
-              <p class="text-sm text-slate-500 mt-0.5">Years in {site.city}</p>
-            </div>
-          </div>
-
-          <div class="card-lift rounded-[var(--radius,1.25rem)] p-6 flex flex-col justify-between" style="aspect-ratio:1; background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-600) 100%);">
-            <div class="text-white/70 text-sm font-semibold">{reviewPlatform} Rating</div>
-            <div>
-              <p class="text-5xl font-black text-white">{site.googleRating}★</p>
-              <p class="text-sm text-white/70 mt-1">{site.googleReviewCount}+ reviews</p>
-            </div>
-          </div>
-
-          <div class="bento-glow card-lift bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-6 flex flex-col justify-between" style="aspect-ratio:1;">
-            <div class="text-slate-500 text-sm">Services offered</div>
-            <div>
-              <p class="text-5xl font-black gradient-text">{site.services.length}</p>
-              <p class="text-sm text-slate-500 mt-1">& counting</p>
-            </div>
-          </div>
-
-          <div class="bento-glow card-lift bg-white border border-slate-200 shadow-sm rounded-[var(--radius,1.25rem)] p-6 flex flex-col items-center justify-center gap-3 text-center" style="aspect-ratio:1;">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background: rgba(34,197,94,0.15);">
-              <div class="w-4 h-4 rounded-full bg-green-400 animate-pulse"></div>
-            </div>
-            <div>
-              <p class="text-sm font-bold text-slate-900">Free Estimates</p>
-              <p class="text-xs text-slate-500">By Appointment</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <!-- Floating badge -->
-      <div class="float-badge absolute -bottom-5 -left-5 glass-light rounded-[var(--radius,1.25rem)] shadow-xl px-4 py-3 flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, var(--brand-600), #f97316);">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="w-5 h-5">
-            <path fill-rule="evenodd" d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
-          </svg>
-        </div>
-        <div>
-          <p class="text-xs font-bold text-slate-900">Locally Owned</p>
-          <p class="text-xs text-slate-500">Committed to satisfaction</p>
-        </div>
       </div>
-    </div>
+    ) : (
+      <HeroAnimated
+        client:load
+        eyebrow={eyebrow}
+        taglineMain={taglineMain}
+        taglineAccent={taglineAccent}
+        city={site.city}
+        reviewCount={site.googleReviewCount}
+        rating={site.googleRating}
+        phone={site.phone}
+        phoneDisplay={site.phoneDisplay}
+        yearsInBusiness={site.yearsInBusiness}
+        servicesCount={site.services.length}
+        reviewPlatform={reviewPlatform}
+      />
+    )}
+  </div>
+
+  <div class="relative z-10">
+    <Marquee items={site.serviceAreas.map((a) => `${a}, ${site.state}`)} />
   </div>
 
   <!-- Scroll hint -->
-  <div class="relative z-10 flex justify-center pb-8">
+  <div class="relative z-10 flex justify-center pb-8 pt-4">
     <div class="flex flex-col items-center gap-1 opacity-40">
       <span class="text-xs text-slate-400 tracking-widest uppercase">Scroll</span>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 text-slate-400 animate-bounce">

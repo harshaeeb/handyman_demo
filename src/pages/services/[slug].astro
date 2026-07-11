@@ -22,8 +22,7 @@ const serviceImage = resolveImage(service.image);
 
 <Base title={title} description={description}>
   <!-- Page header -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-[var(--brand-50)] to-white border-b border-[var(--brand-100)]">
-    <div class="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full bg-[var(--brand-200)] opacity-30 blur-3xl" aria-hidden="true"></div>
+  <section class="relative overflow-hidden mesh-bg grain border-b border-slate-900/5">
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 py-12" data-reveal>
       <a href="/services" class="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-[var(--brand-600)] transition-colors mb-6">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
@@ -31,8 +30,8 @@ const serviceImage = resolveImage(service.image);
         </svg>
         All Services
       </a>
-      <p class="text-sm font-semibold text-[var(--brand-600)] mb-2">{site.business}</p>
-      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900">{service.name}</h1>
+      <p class="text-sm font-bold text-[var(--brand-600)] mb-2">{site.business}</p>
+      <h1 class="font-display text-3xl sm:text-4xl font-bold text-slate-900">{service.name}</h1>
     </div>
   </section>
 
@@ -51,7 +50,7 @@ const serviceImage = resolveImage(service.image);
 
       <div data-reveal>
         {serviceImage ? (
-          <div class="aspect-[4/3] rounded-[var(--radius,1.25rem)] overflow-hidden ring-1 ring-slate-200 shadow-xl shadow-[var(--brand-100)]">
+          <div class="pop-shadow aspect-[4/3] rounded-[1.5rem] overflow-hidden">
             <img
               src={serviceImage}
               alt={`${service.name} in ${site.city}, ${site.state}`}
@@ -61,7 +60,7 @@ const serviceImage = resolveImage(service.image);
             />
           </div>
         ) : (
-          <div class="aspect-[4/3] rounded-[var(--radius,1.25rem)] bg-gradient-to-br from-[var(--brand-50)] to-[var(--brand-100)] border border-[var(--brand-200)] flex items-center justify-center text-[var(--brand-400)] text-sm">
+          <div class="pop-shadow aspect-[4/3] rounded-[1.5rem] bg-gradient-to-br from-[var(--brand-50)] to-[var(--brand-100)] border-2 border-[var(--brand-200)] flex items-center justify-center text-[var(--brand-400)] text-sm">
             [ {service.name} image goes here ]
           </div>
         )}
@@ -70,9 +69,9 @@ const serviceImage = resolveImage(service.image);
   </section>
 
   <!-- Quote form -->
-  <section class="py-16 bg-slate-50 border-t border-slate-200">
+  <section class="py-16 mesh-bg grain border-t border-slate-900/5">
     <div class="max-w-2xl mx-auto px-4 sm:px-6">
-      <h2 class="text-2xl font-bold text-slate-900 mb-6">Request a Quote</h2>
+      <h2 class="font-display text-2xl font-bold text-slate-900 mb-6">Request a Quote</h2>
       <ContactForm />
     </div>
   </section>

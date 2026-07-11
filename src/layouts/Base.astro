@@ -53,6 +53,10 @@ const schema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL.toString()} />
@@ -94,7 +98,7 @@ const schema = {
       }
     </style>
   </head>
-  <body class={`min-h-screen flex flex-col font-sans text-slate-800 antialiased round-${site.theme?.roundness ?? "lg"}`}>
+  <body class={`min-h-screen flex flex-col font-sans text-slate-800 antialiased bg-white round-${site.theme?.roundness ?? "lg"}`}>
     <Header />
     <main class="flex-1">
       <slot />
@@ -111,6 +115,32 @@ const schema = {
         });
       }, { threshold: 0.1 });
       document.querySelectorAll("[data-reveal],[data-reveal-stagger]").forEach((el) => io.observe(el));
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!reduceMotion) {
+        // 3D tilt for bento/service/testimonial cards
+        document.querySelectorAll("[data-tilt]").forEach((el) => {
+          el.addEventListener("mousemove", (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            el.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+          });
+          el.addEventListener("mouseleave", () => {
+            el.style.transform = "";
+          });
+        });
+
+        // Spotlight cursor glow
+        document.querySelectorAll(".spotlight").forEach((el) => {
+          el.addEventListener("mousemove", (e) => {
+            const rect = el.getBoundingClientRect();
+            el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+            el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+          });
+        });
+      }
     </script>
   </body>
 </html>
