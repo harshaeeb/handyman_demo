@@ -159,3 +159,21 @@ process.
   the intentionally plain "[ Client photo goes here ]" placeholder in
   `Hero.astro` is deliberate; it's obvious filler rather than something
   that could be mistaken for a finished, generic-looking site.
+
+## Active branches / in-progress work
+
+- **`genz-redesign`** — an experimental visual redesign of the Done Right
+  Handyman demo, not merged into `main`. Adds `@astrojs/react` +
+  `framer-motion` as an island layer on top of the existing static
+  Astro/Tailwind site (mesh-gradient backgrounds, grain texture, morphing
+  blobs, magnetic CTAs, tilt cards, count-up stats) while keeping the
+  golden rule intact — all content still flows from `site.ts`, only the
+  presentation layer changed. New files live in `src/components/react/`
+  and `src/components/Marquee.astro`. Also flips `features.booking` on
+  and wires a live Cal.com embed (`calLink: "harsha-eeb/gt-30"`) — when
+  `calLink` is empty, `BookingEmbed.astro` now falls back to a static,
+  non-functional design mockup in the same layout instead of rendering
+  nothing, so the section can be reviewed before real credentials exist.
+  This mockup-fallback pattern is new relative to the "renders nothing"
+  behavior described in Feature implementation notes above, and only
+  exists on this branch pending a decision on whether to merge it.
