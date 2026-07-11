@@ -173,7 +173,7 @@ export const site: SiteConfig = {
 
   features: {
     reviewsWidget: false,
-    booking: false,
+    booking: true,
     smsForwarding: false,
   },
 
