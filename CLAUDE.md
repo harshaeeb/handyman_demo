@@ -159,3 +159,44 @@ process.
   the intentionally plain "[ Client photo goes here ]" placeholder in
   `Hero.astro` is deliberate; it's obvious filler rather than something
   that could be mistaken for a finished, generic-looking site.
+
+## `genz-redesign` branch — current state (not merged into `main`)
+
+This branch is an experimental visual redesign of the Done Right Handyman
+demo: `@astrojs/react` + `framer-motion` island layer on top of the base
+Astro/Tailwind site (mesh-gradient backgrounds, grain texture, morphing
+blobs, magnetic CTAs, tilt cards, count-up stats). The golden rule still
+holds — all content flows from `site.ts`; only the presentation layer
+changed. React islands live in `src/components/react/`.
+
+`features.booking` is on with a live Cal.com embed (`calLink:
+"harsha-eeb/gt-30"`) for demo purposes — swap to the real client's link
+before this ever ships. `BookingEmbed.astro` now has two render paths
+instead of one: the real embed when `calLink` is set, and a static
+non-functional design mockup when it's empty (so the section can be
+reviewed before real credentials exist) — this mockup-fallback pattern
+only exists here, not on `main`.
+
+**Booking page** (added this session): `src/pages/book.astro` is a
+dedicated booking screen — `BookingEmbed` accepts a `hideHeading` prop
+(same convention as `ServicesGrid`'s) so the page's own `<h1>` doesn't
+duplicate the component's internal heading. `Header.astro` gained "Home"
+and "Book Appointment" nav links plus a persistent CTA button, so the
+booking page is reachable from every page. The homepage no longer embeds
+the full live calendar directly — it shows a lighter teaser banner
+linking to `/book` instead, so the widget isn't loaded twice.
+
+**Known-fixed bug**: `StatCounter.tsx` (used by `TrustBar`'s count-up
+stats) used to permanently display `0` for any visitor with
+`prefers-reduced-motion` enabled, because `useReducedMotion()` reports
+`false` on the very first render and the old `useState` initializer
+locked that in before the real value could ever be set. Fixed to set the
+value explicitly once in view, regardless of mount-time timing.
+`TrustBar`'s island was also switched from `client:visible` to
+`client:load` for more reliable hydration.
+
+**Verified working**: the live Cal.com booking flow was tested end-to-end
+with a real dummy submission against the connected calendar (select an
+available slot → submit → real confirmation page with working
+reschedule/cancel links → cancelled the test booking afterward). Booking
+creation, confirmation, and reschedule/cancel all confirmed functional.
