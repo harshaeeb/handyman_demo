@@ -177,6 +177,6 @@ export const site: SiteConfig = {
     smsForwarding: false,
   },
 
-  calLink: "",
+  calLink: "harsha-eeb/gt-30",
   ownerCell: "",
 };
