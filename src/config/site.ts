@@ -21,6 +21,18 @@ export interface Testimonial {
   rating?: number;
 }
 
+export interface GalleryItem {
+  // Path under public/images/gallery/ — see the README there for the
+  // naming convention. Falls back to a plain placeholder tile (same
+  // convention as Service.image) until a real file exists at this path.
+  image: string;
+  // Caption overlaid on the image. Keep it short — this is a label, not
+  // a description (pair with a longer write-up on a service page if
+  // needed).
+  label: string;
+  alt?: string;
+}
+
 export interface SiteTheme {
   headerStyle?: "white" | "brand";
   heroLayout?: "split" | "centered";
@@ -56,6 +68,10 @@ export interface SiteConfig {
   footerTagline?: string;
   theme?: SiteTheme;
   testimonials?: Testimonial[];
+  // Completed-work gallery (see /gallery). Add or remove entries freely —
+  // the page renders however many are here, in order. Not specific to
+  // handyman work: any service business can populate this the same way.
+  gallery?: GalleryItem[];
   features: {
     reviewsWidget: boolean;
     booking: boolean;
@@ -158,6 +174,19 @@ export const site: SiteConfig = {
       text: "Very professional and fixed multiple issues around my house. Very knowledgeable and helpful. I have more projects coming up and Done Right will be my first call — they do quality work for a fair price. Highly recommend.",
       rating: 5,
     },
+  ],
+
+  gallery: [
+    { image: "/images/gallery/kitchen-cabinet-hardware.jpg", label: "Kitchen Cabinet Hardware Install" },
+    { image: "/images/gallery/fireplace-facelift.jpg", label: "Fireplace Facelift" },
+    { image: "/images/gallery/deck-repair.jpg", label: "Deck Repair" },
+    { image: "/images/gallery/pathway-rails.jpg", label: "Pathway Rails" },
+    { image: "/images/gallery/custom-gate-build.jpg", label: "Custom Gate Build" },
+    { image: "/images/gallery/fence-staining.jpg", label: "Fence Staining & Weatherproofing" },
+    { image: "/images/gallery/bathroom-tile-refresh.jpg", label: "Bathroom Tile Refresh" },
+    { image: "/images/gallery/interior-door-replacement.jpg", label: "Interior Door Replacement" },
+    { image: "/images/gallery/dishwasher-install.jpg", label: "Dishwasher Installation" },
+    { image: "/images/gallery/driveway-pressure-washing.jpg", label: "Driveway Pressure Washing" },
   ],
 
   footerTagline: "Locally owned. Quality work. Fair prices.",

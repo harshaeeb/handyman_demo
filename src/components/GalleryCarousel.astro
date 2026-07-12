@@ -1,0 +1,115 @@
+---
+// src/components/GalleryCarousel.astro — horizontal scroll-snap portfolio
+// carousel. Fully config-driven: renders however many entries exist in
+// site.gallery, in the order given — add or remove entries in site.ts,
+// no component changes needed. Nothing here is handyman-specific; any
+// service business reuses this by swapping the gallery array.
+//
+// Layout choice: native CSS scroll-snap instead of a JS carousel library.
+// On mobile this is just a swipeable row (no JS required at all — works
+// even if the enhancement script below fails to load). On desktop, two
+// small arrow buttons scroll by one card width. This keeps the page
+// working without adding a new dependency, and scales cleanly whether
+// there are 4 entries or 40 — unlike a grid, the page height never grows
+// with the portfolio size.
+import { site } from "../config/site";
+import { resolveImage } from "../utils/resolveImage";
+
+const items = site.gallery ?? [];
+
+const gradients = [
+  "linear-gradient(135deg, #c2410c 0%, #ea580c 100%)",
+  "linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%)",
+  "linear-gradient(135deg, #065f46 0%, #10b981 100%)",
+  "linear-gradient(135deg, #7c2d12 0%, #dc2626 100%)",
+  "linear-gradient(135deg, #1e1b4b 0%, #7c3aed 100%)",
+  "linear-gradient(135deg, #0c4a6e 0%, #0ea5e9 100%)",
+  "linear-gradient(135deg, #3f3f46 0%, #71717a 100%)",
+  "linear-gradient(135deg, #14532d 0%, #22c55e 100%)",
+];
+---
+
+{items.length > 0 && (
+  <div class="relative" data-gallery-carousel>
+    <!-- Prev/next arrows — desktop only; native touch-scroll handles mobile -->
+    <button type="button" data-gallery-prev aria-label="Previous project"
+      class="hidden sm:flex absolute -left-5 top-[38%] -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white pop-shadow border-2 border-slate-900/10 items-center justify-center text-slate-700 hover:text-slate-900 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+        <path fill-rule="evenodd" d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+    <button type="button" data-gallery-next aria-label="Next project"
+      class="hidden sm:flex absolute -right-5 top-[38%] -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white pop-shadow border-2 border-slate-900/10 items-center justify-center text-slate-700 hover:text-slate-900 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+        <path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+      </svg>
+    </button>
+
+    <div data-gallery-track class="no-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4" data-reveal-stagger>
+      {items.map((item, i) => {
+        const img = resolveImage(item.image);
+        const grad = gradients[i % gradients.length];
+        return (
+          <div class="snap-start shrink-0 w-[80%] sm:w-72 lg:w-80">
+            {/* aspect-[4/3] + object-cover crops/fills any source image to
+                this landscape shape — no pre-cropping needed on upload.
+                Width is the only dimension that matters for quality (a
+                source narrower than ~800px gets upscaled and looks soft);
+                height is free since it just gets cropped. See
+                public/images/gallery/README.md. */}
+            <div class="pop-shadow relative rounded-[1.5rem] overflow-hidden aspect-[4/3] border-2 border-slate-900/5" data-tilt>
+              {img ? (
+                <img
+                  src={img}
+                  alt={item.alt ?? item.label}
+                  class="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  width="640" height="480"
+                />
+              ) : (
+                <div class="absolute inset-0 flex items-center justify-center text-center px-6" style={`background: ${grad};`}>
+                  <p class="text-xs text-white/50">[ photo goes here ]</p>
+                </div>
+              )}
+              <!-- Gradient scrim + label overlaid on the image -->
+              <div class="absolute inset-x-0 bottom-0 pt-12 pb-4 px-4" style="background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.35) 60%, transparent);">
+                <p class="font-display font-bold text-white text-base leading-snug drop-shadow-sm">{item.label}</p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+)}
+
+<style>
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-gallery-carousel]").forEach((carousel) => {
+    const track = carousel.querySelector<HTMLElement>("[data-gallery-track]");
+    const prevBtn = carousel.querySelector<HTMLButtonElement>("[data-gallery-prev]");
+    const nextBtn = carousel.querySelector<HTMLButtonElement>("[data-gallery-next]");
+    if (!track) return;
+
+    const cardScrollDistance = () => {
+      const card = track.querySelector<HTMLElement>(":scope > div");
+      return card ? card.getBoundingClientRect().width + 16 : 300; // 16 = gap-4
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: -cardScrollDistance(), behavior: "smooth" });
+    });
+    nextBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: cardScrollDistance(), behavior: "smooth" });
+    });
+  });
+</script>
