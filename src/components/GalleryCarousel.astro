@@ -33,13 +33,13 @@ const gradients = [
   <div class="relative" data-gallery-carousel>
     <!-- Prev/next arrows — desktop only; native touch-scroll handles mobile -->
     <button type="button" data-gallery-prev aria-label="Previous project"
-      class="hidden sm:flex absolute -left-5 top-[38%] -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white pop-shadow border-2 border-slate-900/10 items-center justify-center text-slate-700 hover:text-slate-900 transition-colors">
+      class="hidden sm:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white pop-shadow border-2 border-slate-900/10 items-center justify-center text-slate-700 hover:text-slate-900 transition-colors">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
         <path fill-rule="evenodd" d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
       </svg>
     </button>
     <button type="button" data-gallery-next aria-label="Next project"
-      class="hidden sm:flex absolute -right-5 top-[38%] -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white pop-shadow border-2 border-slate-900/10 items-center justify-center text-slate-700 hover:text-slate-900 transition-colors">
+      class="hidden sm:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white pop-shadow border-2 border-slate-900/10 items-center justify-center text-slate-700 hover:text-slate-900 transition-colors">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
         <path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
       </svg>
@@ -50,21 +50,23 @@ const gradients = [
         const img = resolveImage(item.image);
         const grad = gradients[i % gradients.length];
         return (
-          <div class="snap-start shrink-0 w-[80%] sm:w-72 lg:w-80">
-            {/* aspect-[4/3] + object-cover crops/fills any source image to
-                this landscape shape — no pre-cropping needed on upload.
-                Width is the only dimension that matters for quality (a
+          <div class="snap-start shrink-0">
+            {/* Sized by height (not width) so the card actually fills the
+                screen — aspect-[3/4] (portrait) then derives width from
+                that height automatically. object-cover still crops/fills
+                any source image to this shape — no pre-cropping needed on
+                upload. Width is the dimension that matters for quality (a
                 source narrower than ~800px gets upscaled and looks soft);
                 height is free since it just gets cropped. See
                 public/images/gallery/README.md. */}
-            <div class="pop-shadow relative rounded-[1.5rem] overflow-hidden aspect-[4/3] border-2 border-slate-900/5" data-tilt>
+            <div class="pop-shadow relative rounded-[1.5rem] overflow-hidden aspect-[3/4] h-[62vh] min-h-[420px] max-h-[680px] border-2 border-slate-900/5" data-tilt>
               {img ? (
                 <img
                   src={img}
                   alt={item.alt ?? item.label}
                   class="absolute inset-0 w-full h-full object-cover"
                   loading="lazy"
-                  width="640" height="480"
+                  width="600" height="800"
                 />
               ) : (
                 <div class="absolute inset-0 flex items-center justify-center text-center px-6" style={`background: ${grad};`}>
@@ -72,8 +74,8 @@ const gradients = [
                 </div>
               )}
               <!-- Gradient scrim + label overlaid on the image -->
-              <div class="absolute inset-x-0 bottom-0 pt-12 pb-4 px-4" style="background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.35) 60%, transparent);">
-                <p class="font-display font-bold text-white text-base leading-snug drop-shadow-sm">{item.label}</p>
+              <div class="absolute inset-x-0 bottom-0 pt-16 pb-5 px-5" style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.35) 55%, transparent);">
+                <p class="font-display font-bold text-white text-lg leading-snug drop-shadow-sm">{item.label}</p>
               </div>
             </div>
           </div>
