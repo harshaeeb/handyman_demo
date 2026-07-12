@@ -177,16 +177,14 @@ export const site: SiteConfig = {
   ],
 
   gallery: [
-    { image: "/images/gallery/kitchen-cabinet-hardware.jpg", label: "Kitchen Cabinet Hardware Install" },
-    { image: "/images/gallery/fireplace-facelift.jpg", label: "Fireplace Facelift" },
+    { image: "/images/gallery/kitchensink.jpg", label: "Kitchen Sink Install" },
     { image: "/images/gallery/deck-repair.jpg", label: "Deck Repair" },
-    { image: "/images/gallery/pathway-rails.jpg", label: "Pathway Rails" },
-    { image: "/images/gallery/custom-gate-build.jpg", label: "Custom Gate Build" },
-    { image: "/images/gallery/fence-staining.jpg", label: "Fence Staining & Weatherproofing" },
-    { image: "/images/gallery/bathroom-tile-refresh.jpg", label: "Bathroom Tile Refresh" },
-    { image: "/images/gallery/interior-door-replacement.jpg", label: "Interior Door Replacement" },
-    { image: "/images/gallery/dishwasher-install.jpg", label: "Dishwasher Installation" },
-    { image: "/images/gallery/driveway-pressure-washing.jpg", label: "Driveway Pressure Washing" },
+    { image: "/images/gallery/shelfinstall.jpg", label: "Shelf Install" },
+    { image: "/images/gallery/gate-repair.jpg", label: "Gate Repair" },
+    { image: "/images/gallery/faninstall.jpg", label: "Ceiling Fan Install" },
+    { image: "/images/gallery/backsplashinstall.jpg", label: "Backsplash Install" },
+    { image: "/images/gallery/doorhandleinstall.jpg", label: "Door Handle Install" },
+    { image: "/images/gallery/lightfixture.jpg", label: "Ceiling light fixture" },
   ],
 
   footerTagline: "Locally owned. Quality work. Fair prices.",
