@@ -3,6 +3,12 @@
 // number badges, pop-shadow depth. Each service's photo still comes from
 // `service.image` in site.ts (see resolveImage) — same placeholder
 // convention as Hero.astro when no file exists yet.
+//
+// Card layout is name → square photo → details (rather than photo-first).
+// The source photos client-supplied are mostly portrait/near-square, not
+// wide landscape — the previous h-36 full-width strip cropped them hard.
+// A square frame crops far less and reads consistently regardless of the
+// source's native aspect ratio.
 import { site } from "../config/site";
 import { resolveImage } from "../utils/resolveImage";
 
@@ -36,24 +42,34 @@ const displayServices = compact ? site.services.slice(0, 6) : site.services;
           <a
             href={`/services/${service.slug}`}
             data-tilt
-            class="pop-shadow bg-white border-2 border-slate-900/5 rounded-[1.5rem] overflow-hidden group block relative"
+            class="pop-shadow bg-white border-2 border-slate-900/5 rounded-[1.5rem] overflow-hidden group block"
           >
-            <span class="sticker absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-xs font-black text-[var(--brand-600)] border-2 border-slate-900/5">
-              {String(i + 1).padStart(2, "0")}
-            </span>
+            <div class="px-5 pt-5 pb-4 flex items-center justify-between gap-2">
+              <h3 class="font-display font-bold text-slate-900 text-base group-hover:text-[var(--brand-600)] transition-colors">{service.name}</h3>
+              <span class="sticker flex-shrink-0 w-8 h-8 rounded-full bg-[var(--brand-50)] flex items-center justify-center text-xs font-black text-[var(--brand-600)] border-2 border-[var(--brand-100)]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+
             {img ? (
-              <div class="h-36 overflow-hidden">
-                <img src={img} alt={service.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" width="400" height="200" />
+              <div class="aspect-square overflow-hidden bg-slate-100">
+                <img
+                  src={img}
+                  alt={service.name}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
               </div>
             ) : (
-              <div class="h-36 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[var(--brand-50)] to-[var(--brand-100)] border-b-2 border-[var(--brand-200)]">
+              <div class="aspect-square flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[var(--brand-50)] to-[var(--brand-100)]">
                 <p class="text-xs text-[var(--brand-400)] text-center px-4">[ {service.name} photo goes here ]</p>
               </div>
             )}
 
             <div class="p-5">
-              <h3 class="font-display font-bold text-slate-900 text-base group-hover:text-[var(--brand-600)] transition-colors">{service.name}</h3>
-              <p class="mt-1.5 text-sm text-slate-500 leading-relaxed line-clamp-2">{service.shortDescription}</p>
+              <p class="text-sm text-slate-500 leading-relaxed line-clamp-2">{service.shortDescription}</p>
               <div class="mt-4 flex items-center gap-1 text-xs font-semibold text-[var(--brand-600)] group-hover:gap-2 transition-all">
                 Learn more
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" class="w-3 h-3">
