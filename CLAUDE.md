@@ -200,3 +200,40 @@ with a real dummy submission against the connected calendar (select an
 available slot → submit → real confirmation page with working
 reschedule/cancel links → cancelled the test booking afterward). Booking
 creation, confirmation, and reschedule/cancel all confirmed functional.
+
+**Header cleanup**: `Header.astro` briefly had "Book Appointment" as both
+a plain nav-text link and a standalone CTA button at the same time —
+removed the nav-text version and kept the button (booking is an action,
+not a content category, so it belongs with the other action element next
+to Call rather than mixed into Home/Services/About/Contact).
+
+**Gallery page** (added this session): `src/pages/gallery.astro` +
+`src/components/GalleryCarousel.astro` — a config-driven, industry-
+agnostic completed-work carousel. Entries live in a new `site.gallery`
+array (`src/config/site.ts`), each just `{ image, label }`; the page
+renders however many exist, in order, with zero component changes
+needed to add/remove projects. Nothing in the component is handyman-
+specific, so this is directly reusable when the template gets copied for
+another business. Seeded with the real project names from the client's
+actual Yelp portfolio plus entries grounded in their real service list.
+
+Implementation notes for future reference:
+- Native CSS scroll-snap carousel, not a JS library — swipeable on
+  mobile with zero JS required for the core interaction; two small
+  arrow buttons on desktop are a progressive enhancement (same
+  vanilla-JS pattern as the header's mobile-menu toggle). Chosen over a
+  grid because it scales cleanly whether the portfolio has 4 entries or
+  40 — a grid's page height grows unbounded, a carousel doesn't.
+- Cards are portrait `aspect-[3/4]`, sized by height (`h-[62vh]`, clamped
+  420–680px) rather than width, so they fill most of the viewport rather
+  than being capped at a fixed pixel size.
+- `object-cover` crops/fills any source photo to the card shape
+  automatically — no pre-cropping needed on upload. The only number that
+  matters is a **minimum 800px width** (cards are wider than tall, so
+  width is what limits visible quality if the source is too small);
+  height is unconstrained since it just gets cropped. Documented in
+  `public/images/gallery/README.md` and inline in the component. The
+  same "800px min width" guidance applies to the other landscape image
+  slots in this template (`Hero`, `about`, `services`) if that ever
+  needs calling out there too.
+- Added "Gallery" to header nav (desktop + mobile).
